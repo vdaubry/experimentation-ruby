@@ -1,8 +1,5 @@
 require 'aws-sdk'
 
-
-
-
 class SQS
   def initialize(queue_name)
     conf_path = "#{File.expand_path(File.dirname(__FILE__))}/../aws.yml"
