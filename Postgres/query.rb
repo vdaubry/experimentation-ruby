@@ -1,4 +1,3 @@
-require 'byebug'
 require 'pg'
 require 'yaml'
 

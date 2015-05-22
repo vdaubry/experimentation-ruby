@@ -1,0 +1,25 @@
+-- Nombre de user qui ont lu une page 20jours après leur inscription
+\o retention_<%= days %>.csv
+\a
+\f ,
+WITH monthly_usage AS (
+  SELECT DISTINCT u.created_at::date AS "date", u.id as "id"
+  FROM user_ipads u
+  WHERE created_at::date > CURRENT_date - '30 days'::INTERVAL)
+SELECT active.date, active.count AS "Active", total.count AS "Total", ROUND(100.0* active.count / total.count, 2) AS "Percentage"
+FROM (
+  SELECT monthly_usage.date AS "date", COUNT(DISTINCT monthly_usage.id) AS "count"
+  FROM monthly_usage
+  JOIN book_readings ON book_readings.user_ipad_id=monthly_usage.id
+  JOIN page_readings ON page_readings.book_reading_id=book_readings.id
+  WHERE page_readings.created_at::date > (monthly_usage.date + '<%= days %> day'::INTERVAL)::date
+  GROUP BY 1
+) active
+JOIN 
+(
+  SELECT created_at::date AS "date", COUNT(DISTINCT id)
+  FROM user_ipads 
+  WHERE created_at::date > CURRENT_date - '30 days'::INTERVAL
+  GROUP BY 1
+) total ON total.date = active.date
+ORDER BY 1
