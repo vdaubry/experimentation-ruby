@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<!-- saved from url=(0090)http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script -->
+<html itemscope="" itemtype="http://schema.org/QAPage"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>sql - Using an environment variable in a PSQL script - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico?v=6cd6089ee7f6">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=41f6e13ade69">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=ea71a5211a91&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Using an environment variable in a PSQL script">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Is it possible to use a Linux environment variable inside a .sql file? I&#39;m using the copy/select query to write to an output file, and I&#39;ll like to put that directory in a variable. So I want to do ">
+    <meta property="og:url" content="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script">
+    <link rel="canonical" href="./sample_files/sample.html">
+
+    
+    
+    <script type="text/javascript" async="" src="http://engine.adzerk.net/ados?t=1432210684461&request={%22Placements%22:[{%22A%22:22,%22S%22:8277,%22D%22:%22adzerk1062670938%22,%22ATA%22:[17,2221],%22Z%22:45}],%22Keywords%22:%22sql%2Cpostgresql%2Cenvironment-variables%2Cx-user-registered%2Cx-5000plus-rep%22,%22Referrer%22:%22https%3A%2F%2Fwww.google.fr%2F%22,%22IsAsync%22:true}"></script><script async="" src="./sample_files/quant.js"></script><script async="" src="./sample_files/beacon.js"></script><script async="" src="./sample_files/analytics.js"></script><script type="text/javascript" async="" src="./sample_files/ados.js"></script><script src="./sample_files/jquery.min.js"></script>
+    <script src="./sample_files/stub.en.js"></script>
+    <link rel="stylesheet" type="text/css" href="./sample_files/all.css">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Using an environment variable in a PSQL script&#39;" href="http://stackoverflow.com/feeds/question/18725880">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({canOpenBounty:true,votesCast:[],canViewVoteCounts:true,totalCommentCount:1,shownCommentCount:1,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:18725880});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '18725880');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script><style type="text/css"></style>
+<script>StackExchange.ready(function() { StackExchange.question.trackNextPreviousShowQuestionEligible({"QuestionId":18725880,"ExpectedListId":null,"Referrer":"https://www.google.fr/"}); });</script>
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToReputationNotifications('1');
+                StackExchange.realtime.subscribeToTopBarNotifications('1');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1432210684,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"73016e0c73414243c9534c92b6b5cee7","isRegistered":true,"userType":3,"userId":315374,"accountId":121919,"gravatar":"<div class=\"gravatar-wrapper-32\"><img src=\"https://www.gravatar.com/avatar/ab712b777c28be5dbcae0026587b0de0?s=32&amp;d=identicon&amp;r=PG\" alt=\"\" width=\"32\" height=\"32\"></div>","profileUrl":"http://stackoverflow.com/users/315374/vdaubry","ab":{"next_previous_buttons":{"v":"a","g":1}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"736d6f017e60","js/moderator.en.js":"3bcefe9cb3b6","js/full-anon.en.js":"419facedc0c7","js/full.en.js":"b08ef30ccd15","js/wmd.en.js":"f7262eaf7a49","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"4734b80ae2f8","js/help.en.js":"d9d907e73446","js/tageditor.en.js":"71b204ea47fc","js/tageditornew.en.js":"72835ad9455f","js/inline-tag-editing.en.js":"5c1ff74d70cd","js/revisions.en.js":"989c474e85a9","js/review.en.js":"9184ce398533","js/tagsuggestions.en.js":"b278f9a0b23b","js/post-validation.en.js":"ad89062edf69","js/explore-qlist.en.js":"257ba4cb7b04","js/events.en.js":"eea29bf68ca8","js/keyboard-shortcuts.en.js":"34bdea56a951","js/external-editor.en.js":"b04e37426de6","js/external-editor.en.js":"b04e37426de6","js/snippet-javascript.en.js":"7700e8b17c10","js/snippet-javascript-codemirror.en.js":"1c30808d8d83"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+    
+    
+<script async="" src="./sample_files/full.en.js"></script><script async="" src="./sample_files/snippet-javascript.en.js"></script><script async="" src="./sample_files/post-validation.en.js"></script><script async="" src="./sample_files/prettify-full.en.js"></script><script async="" src="./sample_files/external-editor.en.js"></script><script async="" src="./sample_files/wmd.en.js"></script><script type="text/javascript" src="http://static.adzerk.net/Extensions/adFeedback.js"></script><link rel="stylesheet" href="http://static.adzerk.net/Extensions/adFeedback.css"><style type="text/css"> .wmd-snippet-button span { background-position: 0 0; } .wmd-snippet-button:hover span { background-position: 0 -40px; }</style><link type="text/css" rel="stylesheet" href="./sample_files/jobs.min.css"></head>
+<body class="question-page new-topbar">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+                    <a href="http://stackoverflow.com/users/logout" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:8 })">log out</a>
+    </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track" href="http://careers.stackoverflow.com/?utm_source=stackoverflow.com&utm_medium=site-ui&utm_campaign=multicollider" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+                <a href="http://stackexchange.com/users/121919/?tab=accounts">your communities</a>
+        </h3>
+            
+            <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" id="edit-pinned-sites">edit</a>
+            <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" id="cancel-pinned-sites" style="display: none;">cancel</a>
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <ul class="my-sites">
+                    <li>
+                        
+
+
+
+    <a href="http://stackoverflow.com/" class="site-link js-gps-track" data-id="1" data-gps-track="
+            site.switch({ target_site:1, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+            <span class="rep-score">7,008</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://serverfault.com/" class="site-link js-gps-track" data-id="2" data-gps-track="
+            site.switch({ target_site:2, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-serverfault" title="Server Fault"></div>
+        Server Fault
+            <span class="rep-score">116</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://apple.stackexchange.com/" class="site-link js-gps-track" data-id="118" data-gps-track="
+            site.switch({ target_site:118, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-apple" title="Ask Different"></div>
+        Ask Different
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://codereview.stackexchange.com/" class="site-link js-gps-track" data-id="196" data-gps-track="
+            site.switch({ target_site:196, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-codereview" title="Code Review"></div>
+        Code Review
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://superuser.com/" class="site-link js-gps-track" data-id="3" data-gps-track="
+            site.switch({ target_site:3, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-superuser" title="Super User"></div>
+        Super User
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+            </ul>
+                <div class="pinned-site-editor-container" style="display: none;">
+                    <input id="js-site-search-txt" type="text" class="site-filter-input" value="" placeholder="Add a Stack Exchange community">
+                    <input type="submit" id="pin-site-btn" value="Add" disabled="disabled">
+                    <ul class="js-found-sites found-sites"></ul>
+                    <ul class="pinned-site-list sortable" data-custom-list="False">
+                    </ul>
+                    <input type="submit" value="Save" id="save-pinned-sites-btn" disabled="disabled">
+                    <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" id="reset-pinned-sites">reset to default list</a>
+                </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 144 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+                <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+                    <span class="hidden-text">Inbox</span>
+                    <span class="unread-count" style="display:none"></span>
+                </a>
+                <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="topbar-icon icon-achievements yes-hover js-achievements-button " data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+                    <span class="hidden-text">Reputation and Badges</span>
+                    <span class="unread-count" style="display:none">
+                        
+                    </span>
+                </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <a href="http://stackoverflow.com/users/315374/vdaubry" class="profile-me js-gps-track" data-gps-track="profile_summary.click();">
+                    
+                    <div class="gravatar-wrapper-24" title="vdaubry"><img src="./sample_files/ab712b777c28be5dbcae0026587b0de0" alt="" width="24" height="24" class="avatar-me js-avatar-me"></div>
+
+                    <div class="links-container topbar-flair">
+
+                        <span class="reputation" title="your reputation: 7,008">
+                            7,008
+                        </span>
+<span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="31 silver badges"><span class="badge2"></span><span class="badgecount">31</span></span><span title="60 bronze badges"><span class="badge3"></span><span class="badgecount">60</span></span>                    </div>
+                </a>
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+
+
+
+                            <a href="http://stackoverflow.com/review" title="Review queues - help improve the site">
+                                review
+                            </a>
+
+    <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="on">
+                    <input name="q" type="text" placeholder="search" value="" tabindex="1" autocomplete="on" maxlength="240">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://stackoverflow.com/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="http://stackoverflow.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=41f6e13ade69">
+			<div id="question-header">
+                <h1 itemprop="name"><a href="./sample_files/sample.html" class="question-hyperlink">Using an environment variable in a PSQL script</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="18725880" id="question">
+
+        <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="18725880">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">4</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" title="This is a favorite question (click again to undo)">favorite</a>
+        <div class="favoritecount"><b>1</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>Is it possible to use a Linux environment variable inside a .sql file? I'm using the copy/select query to write to an output file, and I'll like to put that directory in a variable. So I want to do something like:</p>
+
+<pre class="lang-sql prettyprint prettyprinted"><code><span class="pln">COPY </span><span class="pun">(</span><span class="kwd">SELECT</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">FROM</span><span class="pln"> a</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">TO</span><span class="pln"> </span><span class="pun">$</span><span class="pln">outputdir</span><span class="pun">/</span><span class="pln">a</span><span class="pun">.</span><span class="pln">csv</span></code></pre>
+
+<p>Outputdir would be set in my environment. Is this possible?</p>
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/sql" class="post-tag js-gps-track" title="show questions tagged &#39;sql&#39;" rel="tag">sql</a> <a href="http://stackoverflow.com/questions/tagged/postgresql" class="post-tag js-gps-track" title="show questions tagged &#39;postgresql&#39;" rel="tag">postgresql</a> <a href="http://stackoverflow.com/questions/tagged/environment-variables" class="post-tag js-gps-track" title="show questions tagged &#39;environment-variables&#39;" rel="tag">environment-variables</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/18725880/315374" title="short permalink to this question" class="short-link" id="link-post-18725880">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/18725880/edit" class="edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="close-question-link" title="vote to close this question (when closed, no new answers can be added)" data-questionid="18725880" data-isclosed="false">close</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="18725880">flag</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/18725880/revisions" title="show all edits to this post">edited <span title="2013-09-10 18:07:45Z" class="relativetime">Sep 10 '13 at 18:07</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2013-09-10 17:59:52Z" class="relativetime">Sep 10 '13 at 17:59</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1660256/user1660256"><div class="gravatar-wrapper-32"><img src="./sample_files/d9f494e4085cae4437571682c1963d79" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1660256/user1660256">user1660256</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">82</span><span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="14 bronze badges"><span class="badge3"></span><span class="badgecount">14</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-18725880" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+
+
+    <tr id="comment-27598097" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy"><i>NB:</i> As is, even if you did succeed in substituting the variable, it won't work as expected because COPY ... TO expects the output file path to be single quoted.  See here: <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html" rel="nofollow">postgresql.org/docs/9.2/static/sql-copy.html</a></span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1914300/benjwadams" title="413 reputation" class="comment-user">benjwadams</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#comment27598097_18725880"><span title="2013-09-10 19:59:41Z" class="relativetime-clean">Sep 10 '13 at 19:59</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-18725880" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-18725880">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments." href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" onclick=""></a>
+        </div>         
+    </td>
+</tr>              <tr class="bounty-notification">
+          <td class="votecell"></td>
+          <td>
+          <div style="margin-top:20px">
+            <a class="bounty-link bounty" title="offer some of your reputation for better answers">
+                start a bounty
+            </a>
+          </div>
+          </td>
+          </tr>
+    </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								2 Answers
+                                <span style="display:none;" itemprop="answerCount">2</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="18730455"></a>
+<div id="answer-18730455" class="answer accepted-answer" data-answerid="18730455" itemscope="" itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="18730455">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">5</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>You can store the result of a shell command inside a <code>psql</code> variable like this:</p>
+
+<pre class="lang-sql prettyprint prettyprinted"><code><span class="pun">\</span><span class="kwd">set</span><span class="pln"> afile </span><span class="pun">`</span><span class="pln">echo </span><span class="str">"$outputdir/a.csv"</span><span class="pun">`</span><span class="pln">
+COPY </span><span class="pun">(</span><span class="kwd">SELECT</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">FROM</span><span class="pln"> a</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">TO</span><span class="pln"> </span><span class="pun">:</span><span class="str">'afile'</span><span class="pun">;</span></code></pre>
+
+<p>Another (better in my opinion) solution is to use only <code>psql</code> variables, see <a href="http://stackoverflow.com/questions/18673208/how-to-use-variables-in-a-psql-script/18683163#18683163">this answer of mine about psql variables</a>, which is similar to your example. A example for your case would be:</p>
+
+<pre class="lang-sql prettyprint prettyprinted"><code><span class="pun">\</span><span class="kwd">set</span><span class="pln"> outputdir </span><span class="str">'/path/to/output'</span><span class="pln">
+</span><span class="pun">\</span><span class="kwd">set</span><span class="pln"> afile </span><span class="pun">:</span><span class="pln">outputdir </span><span class="str">'/a.csv'</span><span class="pln">
+COPY </span><span class="pun">(</span><span class="kwd">SELECT</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">FROM</span><span class="pln"> a</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">TO</span><span class="pln"> </span><span class="pun">:</span><span class="str">'afile'</span><span class="pun">;</span></code></pre>
+
+<p>Note that, in the example, you need to set the variable inside the script file, but you can skip the first line if you set it when you call <code>psql</code>:</p>
+
+<pre class="lang-sql prettyprint prettyprinted"><code><span class="pln">psql </span><span class="com">--set=outputdir="$outputdir" &lt;conn parameters&gt; -f /path/to/yourscript.sql</span></code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/18730455/315374" title="short permalink to this answer" class="short-link" id="link-post-18730455">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/18730455/edit" class="edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="18730455">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-09-10 23:40:50Z" class="relativetime">Sep 10 '13 at 23:40</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1596080/matheusol"><div class="gravatar-wrapper-32"><img src="./sample_files/61366d7613f73cf73087723ff8d0abbe" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1596080/matheusol">MatheusOl</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">2,061</span><span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="10 bronze badges"><span class="badge3"></span><span class="badgecount">10</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-18730455" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="1" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+
+
+    <tr id="comment-27631158" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I was very excited about this answer, but it's not quite working for me. Using your first example, 'afile' just evaluates to 'echo "$outputdir/a.csv"'. Nothing inside the quotes is expanded.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1660256/user1660256" title="82 reputation" class="comment-user owner">user1660256</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#comment27631158_18730455"><span title="2013-09-11 16:50:18Z" class="relativetime-clean">Sep 11 '13 at 16:50</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-27635262" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">The examples work for me on psql 9.2.4.  What version of psql are you using?</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1914300/benjwadams" title="413 reputation" class="comment-user">benjwadams</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#comment27635262_18730455"><span title="2013-09-11 18:55:07Z" class="relativetime-clean">Sep 11 '13 at 18:55</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-27635828" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">We're using 9.0.2.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1660256/user1660256" title="82 reputation" class="comment-user owner">user1660256</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#comment27635828_18730455"><span title="2013-09-11 19:13:03Z" class="relativetime-clean">Sep 11 '13 at 19:13</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-27636473" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">According to the <a href="http://www.postgresql.org/docs/9.0/static/app-psql.html" rel="nofollow">psql docs</a> for 9.0, you <i>should</i> be able to use backquotes to return the output from the shell.  Thus, that should really not be outputting the echo part especially, and the variable ought to be subject to expansion as well.  Did you copy that code verbatim and are you typed it out manually, are sure you didn't maybe use a single quote rather than a backquote?</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1914300/benjwadams" title="413 reputation" class="comment-user">benjwadams</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#comment27636473_18730455"><span title="2013-09-11 19:32:17Z" class="relativetime-clean">Sep 11 '13 at 19:32</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-27636761" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">YES! Single quote is exactly what I used. Thanks so much for that insight!!</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1660256/user1660256" title="82 reputation" class="comment-user owner">user1660256</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#comment27636761_18730455"><span title="2013-09-11 19:41:42Z" class="relativetime-clean">Sep 11 '13 at 19:41</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-18730455" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-18730455">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#">add a comment</a><span class="js-link-separator ">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link " title="expand to show all comments on this post" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" onclick="">show <b>1</b> more comment</a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="18728287"></a>
+<div id="answer-18728287" class="answer" data-answerid="18728287" itemscope="" itemtype="http://schema.org/Answer">
+
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="18728287">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>This appears to work for your use case, provided you single quote the output file name as I mentioned.  It will escape any double quotes as well contained within the SQL.</p>
+
+<pre class="lang-sql prettyprint prettyprinted"><code><span class="pln">psql </span><span class="pun">-</span><span class="pln">c </span><span class="str">"$(eval echo '"' $(&lt;envvars.sql | sed '</span><span class="pln">s</span><span class="pun">/</span><span class="str">"/\\"</span><span class="pun">/</span><span class="pln">g</span><span class="str">') '"')"</span></code></pre>
+
+<p>Of course, note that if your file contains any dollar quoted variables, the shell is going to try to interpret as a variable, and your script will break, so you will need to escape any dollar signs you need preserved literally with a backslash.</p>
+
+<p>See also the second snippet in the accepted answer to <a href="http://superuser.com/questions/235738/how-do-i-substitute-environment-variables-when-i-ouput-a-file">this question</a> for a possibly more robust answer.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/18728287/315374" title="short permalink to this answer" class="short-link" id="link-post-18728287">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/18728287/edit" class="edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="18728287">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-09-10 20:35:01Z" class="relativetime">Sep 10 '13 at 20:35</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1914300/benjwadams"><div class="gravatar-wrapper-32"><img src="./sample_files/827f6091963e08262d2143d379093d1b" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1914300/benjwadams">benjwadams</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">413</span><span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="9 bronze badges"><span class="badge3"></span><span class="badgecount">9</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-18728287" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-18728287" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-18728287">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://stackoverflow.com/questions/18725880/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="18725880">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+                            <input type="hidden" name="referrer" value="https://www.google.fr/">
+							<h2 class="space">Your Answer</h2>
+
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+            // Have to fire editor after snippets, if snippets enabled
+            if (StackExchange.options.snippets.enabled) {
+                StackExchange.using("snippets", function() {
+                    createEditor();
+                });
+            }
+            else {
+                createEditor();
+            }
+        });
+
+        function createEditor() {
+            prepareEditor({
+                heartbeatType: 'answer',
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: false,
+                    discardSelector: ".discard-answer"
+                
+                });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li class="wmd-button" id="wmd-bold-button" title="Strong &lt;strong&gt; Ctrl+B" style="left: 0px;"><span style="background-position: 0px 0px;"></span></li><li class="wmd-button" id="wmd-italic-button" title="Emphasis &lt;em&gt; Ctrl+I" style="left: 25px;"><span style="background-position: -20px 0px;"></span></li><li class="wmd-spacer wmd-spacer1" id="wmd-spacer1"></li><li class="wmd-button" id="wmd-link-button" title="Hyperlink &lt;a&gt; Ctrl+L" style="left: 75px;"><span style="background-position: -40px 0px;"></span></li><li class="wmd-button" id="wmd-quote-button" title="Blockquote &lt;blockquote&gt; Ctrl+Q" style="left: 100px;"><span style="background-position: -60px 0px;"></span></li><li class="wmd-button" id="wmd-code-button" title="Code Sample &lt;pre&gt;&lt;code&gt; Ctrl+K" style="left: 125px;"><span style="background-position: -80px 0px;"></span></li><li class="wmd-button" id="wmd-image-button" title="Image &lt;img&gt; Ctrl+G" style="left: 150px;"><span style="background-position: -100px 0px;"></span></li><li class="wmd-button wmd-snippet-button" style="left:175px" id="wmd-snippet-button" title="Code snippet Ctrl-M"><span style="background-image: url(http://stackoverflow.com/content/balsamiq/wmd-mockup-button.png?v=4);"></span></li><li class="wmd-spacer wmd-spacer2" id="wmd-spacer2" style="left: 220px;"></li><li class="wmd-button" id="wmd-olist-button" title="Numbered List &lt;ol&gt; Ctrl+O" style="left: 225px;"><span style="background-position: -120px 0px;"></span></li><li class="wmd-button" id="wmd-ulist-button" title="Bulleted List &lt;ul&gt; Ctrl+U" style="left: 250px;"><span style="background-position: -140px 0px;"></span></li><li class="wmd-button" id="wmd-heading-button" title="Heading &lt;h1&gt;/&lt;h2&gt; Ctrl+H" style="left: 275px;"><span style="background-position: -160px 0px;"></span></li><li class="wmd-button" id="wmd-hr-button" title="Horizontal Rule &lt;hr&gt; Ctrl+R" style="left: 300px;"><span style="background-position: -180px 0px;"></span></li><li class="wmd-spacer wmd-spacer3" id="wmd-spacer3" style="left: 346px;"></li><li class="wmd-button" id="wmd-undo-button" title="Undo - Ctrl+Z" style="left: 350px;"><span style="background-position: -200px -20px;"></span></li><li class="wmd-button" id="wmd-redo-button" title="Redo - Ctrl+Shift+Z" style="left: 375px;"><span style="background-position: -220px -20px;"></span></li><li class="wmd-button wmd-help-button" id="wmd-help-button" title="Markdown Editing Help" style="right: 0px;"><span style="background-position: -240px 0px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input processed" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        <div class="grippie" style="margin-right: 0px;"></div></div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox">
+        <label for="communitymode" title="Marking an answer community wiki encourages others to edit it by lowering the reputation barrier required to edit. However, you will not gain any upvote reputation from it. This cannot be undone.">community wiki</label>
+    </div>
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="73016e0c73414243c9534c92b6b5cee7">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="discard-answer dno">discard</a>
+								</div>
+						</form>
+
+					<script>
+						StackExchange.using("inlineEditing", function () {
+							StackExchange.inlineEditing.init();
+						});
+					</script>
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/sql" class="post-tag" title="show questions tagged &#39;sql&#39;" rel="tag">sql</a> <a href="http://stackoverflow.com/questions/tagged/postgresql" class="post-tag" title="show questions tagged &#39;postgresql&#39;" rel="tag">postgresql</a> <a href="http://stackoverflow.com/questions/tagged/environment-variables" class="post-tag" title="show questions tagged &#39;environment-variables&#39;" rel="tag">environment-variables</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2013-09-10 17:59:52Z"><b>1 year ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>1414 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script?lastactivity" class="lastactivity-link" title="2013-09-10 23:40:50Z">1 year ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Featured on Meta
+                </div>
+                <hr>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="http://meta.stackexchange.com/questions/256814/new-navigation-for-stack-overflow-is-in-alpha-testing?cb=1" class="question-hyperlink">
+<div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>                </a>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackexchange.com/questions/256814/new-navigation-for-stack-overflow-is-in-alpha-testing?cb=1" class="question-hyperlink">New navigation for Stack Overflow is in alpha testing</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="http://meta.stackoverflow.com/questions/291017/april-2015-community-moderator-election-results?cb=1" class="question-hyperlink">
+<div class="favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>                </a>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/291017/april-2015-community-moderator-election-results?cb=1" class="question-hyperlink">April 2015 Community Moderator Election Results</a>
+                </div>
+                <br class="cbt">
+            </div>
+                <div class="bulletin-title">
+                    Hot Meta Posts
+                </div>
+                <hr>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">19</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/294643/what-to-do-with-an-almost-duplicate-question-with-a-better-answer?cb=1" class="question-hyperlink">What to do with an almost-duplicate question with a better answer?</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">101</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/294659/should-i-avoid-reviewing-altogether?cb=1" class="question-hyperlink">Should I avoid reviewing altogether?</a>
+                </div>
+                <br class="cbt">
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1062670938",[17,2221]).setZone(45) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1062670938">
+            <iframe id="ados_frame_adzerk1062670938_572635" frameborder="0" scrolling="no" height="250" width="220"></iframe><img height="0" width="0" border="0" style="position: absolute; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;" src="./sample_files/i.gif"></div>  
+        <div id="hireme" class="orange looking tagged"><a href="http://careers.stackoverflow.com/jobs?a=2LRza" target="_blank" data-la="2LRza" data-hf="h" class="top"> <span>Looking for a job?</span></a><ul class="jobs"><li><a data-cid="171771" data-la="sGXDNu4Fhbr" href="http://careers.stackoverflow.com/jobs/85556/d%C3%A9veloppeur-derni%C3%A8res-technologies-microsoft-et-isagri" target="_blank" title="Développeur dernières technologies Microsoft et Mobilité at ISAGRI. Click to learn more.">Développeur dernières technologies Microsoft et Mobilité<br><div class="company">ISAGRI</div><div class="location" title="Tillé, France">Tillé, France</div><span class="post-tag">sql</span><span class="post-tag">.net</span></a></li><li><a data-cid="172981" data-la="t8G0ldjWY0i" href="http://careers.stackoverflow.com/jobs/86889/directeur-de-plates-formes-big-data-dorange-f-h-orange" target="_blank" title="Directeur de plates-formes Big Data d&#39;Orange (f/h) at Orange. Click to learn more.">Directeur de plates-formes Big Data d'Orange (f/h)<br><div class="company">Orange</div><div class="location" title="Arcueil, France">Arcueil, France</div></a></li></ul><img class="impression" src="./sample_files/i" style="display:none;"><img class="impression" src="./sample_files/sGXDNu4Fhbr-t8G0ldjWY0i-2LRza" style="display:none;"></div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/18673208?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">1</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/18673208/how-to-use-variables-in-a-psql-script?lq=1" class="question-hyperlink">how to use variables in a psql script</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/135688?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes large">544
+    </div>
+</a><a href="http://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x?rq=1" class="question-hyperlink">Setting environment variables in OS X?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/318239?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">128
+    </div>
+</a><a href="http://stackoverflow.com/questions/318239/how-do-i-set-environment-variables-from-java?rq=1" class="question-hyperlink">How do I set environment variables from Java?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/4870328?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">324
+    </div>
+</a><a href="http://stackoverflow.com/questions/4870328/how-to-read-environment-variable-in-node-js?rq=1" class="question-hyperlink">How to read environment variable in Node.js</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/5755576?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">4
+    </div>
+</a><a href="http://stackoverflow.com/questions/5755576/mysql-use-environment-variables-in-script?rq=1" class="question-hyperlink">MySQL: Use environment variables in script</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/7128542?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">20
+    </div>
+</a><a href="http://stackoverflow.com/questions/7128542/how-to-set-an-environment-variable-only-for-the-duration-of-the-script?rq=1" class="question-hyperlink">How to set an environment variable only for the duration of the script?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/7501678?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">286
+    </div>
+</a><a href="http://stackoverflow.com/questions/7501678/set-environment-variables-on-mac-os-x-lion?rq=1" class="question-hyperlink">Set environment variables on Mac OS X Lion</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/9595683?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/9595683/postgresql-environment-file-on-mac-osx?rq=1" class="question-hyperlink">PostgreSQL environment file on Mac OSX?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/11313876?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/11313876/environment-variable-not-recognised-in-ant-script?rq=1" class="question-hyperlink">Environment variable not recognised in ant script</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/19846937?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/19846937/psql-variables-in-included-scripts?rq=1" class="question-hyperlink">psql variables in included scripts</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/20991187?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/20991187/how-can-read-environment-variable-with-sql-statement-in-oracle?rq=1" class="question-hyperlink">how can read environment variable with sql statement in oracle</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/45787/how-to-substantiate-the-claim-that-something-is-not-known" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to substantiate the claim that something is not known?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/171500/diy-rubidium-clock-construction" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    DIY rubidium clock construction
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/30365281/how-javascript-grouping-operator-work" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How JavaScript grouping operator work?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/17484/what-would-the-fortifications-of-an-underwater-city-look-like" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What would the fortifications of an underwater city look like?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/90317/could-skynet-have-avoided-the-war-via-nonviolent-means" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Could Skynet have avoided the war via nonviolent means?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/78936/does-it-make-sense-to-authenticate-a-user-when-he-she-provides-existing-valid-cr" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does it make sense to authenticate a user when he/she provides existing valid credentials while registering?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/57253/using-the-with-names-of-functions-variables-constants-in-computer-literature" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Using “the” with names of functions, variables, constants in computer literature
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-sharepoint" title="SharePoint Stack Exchange"></div><a href="http://sharepoint.stackexchange.com/questions/143521/how-to-allow-write-host-command-to-write-into-a-file-notepad-rather-than-in-th" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:232 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    how to allow Write-Host command to write into a file (notepad) rather than in the screen
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/204796/how-to-get-system-time-with-microsecond-accuracy" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to get system time with microsecond accuracy
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-engineering" title="Engineering Stack Exchange"></div><a href="http://engineering.stackexchange.com/questions/2895/is-this-railway-carriage-side-likely-made-of-single-metal-sheet" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:595 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is this railway carriage side likely made of single metal sheet?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/90356/story-about-a-civilization-which-repeatedly-rises-and-falls-because-individuals" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Story about a civilization which repeatedly rises and falls, because individuals can't stop reproducing
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/626480/shebang-line-doesnt-invoke-perl" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Shebang line doesn't invoke perl
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/78975/why-should-text-be-non-selectable" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why should text be non-selectable?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/30364917/php-flat-array-to-nested-a-b-c-to-a-b-c" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    PHP flat array to nested ["a", "b", "c"] to ["a" =&gt;["b"=&gt;["c"]]]
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/17533/would-a-sapient-species-have-to-be-the-dominant-species" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Would a sapient species have to be the dominant species?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/171557/what-and-whys-of-termination" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What and Why's of termination?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/17590/how-to-go-from-a-free-person-to-a-slave" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to go from a free person to a slave
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-cooking" title="Seasoned Advice"></div><a href="http://cooking.stackexchange.com/questions/57659/what-is-the-best-way-to-infuse-garlic-flavor-in-the-bland-brown-rice" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:49 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the best way to infuse garlic flavor in the bland brown rice?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/90388/how-long-until-the-rights-of-marvel-characters-that-20th-century-fox-own-revert" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How long until the rights of Marvel characters that 20th Century Fox own revert to Marvel Studios?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-writers" title="Writers Stack Exchange"></div><a href="http://writers.stackexchange.com/questions/17373/skipping-details-in-a-scene" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:166 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Skipping details in a scene
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-salesforce" title="Salesforce Stack Exchange"></div><a href="http://salesforce.stackexchange.com/questions/76957/can-we-use-custom-label-in-validation-rule" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:459 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can we use custom label in validation rule?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-programmers" title="Programmers Stack Exchange"></div><a href="http://programmers.stackexchange.com/questions/284306/where-should-my-team-start-with-becoming-modern" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:131 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Where should my team start with becoming "modern"?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-skeptics" title="Skeptics Stack Exchange"></div><a href="http://skeptics.stackexchange.com/questions/27785/did-jfk-earn-150-000-a-year-as-president-and-donate-it-all-to-charity" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:212 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Did JFK earn $150,000 a year as president, and donate it all to charity?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/83995/how-to-speed-up-a-symbolic-integration" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to speed up a symbolic integration
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="http://stackoverflow.com/questions/18725880/using-an-environment-variable-in-a-psql-script#" class="show-more js-show-more js-gps-track" data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/18725880" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/18725880/ivc/fade');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/18725880/ivc/fade" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang">lang-sql</div></div>
+
+    <script>
+        $('#wmd-input').one("keypress", function() {
+            $.ajax({
+                url: '/accounts/email-settings-form',
+                cache: false,
+                success: function(data) {
+                    $('#submit-button').parent().prepend(data);
+                }
+            });
+        });
+
+    </script>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                    <a href="http://blog.stackoverflow.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2015 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2015.5.21.2601
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow works best with JavaScript enabled&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('sql,postgresql,environment-variables,x-user-registered,x-5000plus-rep');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');        
+        ga('set', 'dimension1', '121919');         
+        ga('set', 'dimension2', '|sql|postgresql|environment-variables|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>            
+    
+<script type="text/javascript" src="./sample_files/p"></script><span id="buffer-extension-hover-button" style="display: none;position: absolute;z-index: 8675309;width: 100px;height: 25px;background-image: url(chrome-extension://noojglkidnpfjbincgijbaiedldjfbhh/data/shared/img/buffer-hover-icon@2x.png);background-size: 100px 25px;opacity: 0.9;cursor: pointer;"></span></body></html>

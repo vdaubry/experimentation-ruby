@@ -2,41 +2,38 @@
 # encoding: utf-8
 
 require "bunny"
-require 'aws-sdk'
+require 'riak'
 require 'yaml'
 require 'byebug'
 require 'nokogiri'
 require 'celluloid'
 require 'redis'
 
-class S3
+class RiakClient
   def initialize(bucket_name:)
-    conf = YAML.load_file("#{File.expand_path(File.dirname(__FILE__))}/../../aws.yml")
-    Aws.config.update({
-      access_key_id: conf['access_key_id'],
-      secret_access_key: conf['secret_access_key'],
-      region: 'us-east-1'
-    })
-    @s3 = Aws::S3::Client.new
-    @bucket_name = bucket_name
+    client = Riak::Client.new(host: '52.5.37.108', :pb_port => 8087)
+    @bucket = client.bucket(bucket_name)
   end
   
   def getObject(key:)
-    @s3.get_object(bucket: @bucket_name,
-                    key: key).body
+    begin
+      @bucket.get(key).data
+    rescue Riak::ProtobuffsFailedRequest
+      nil
+    end
   end
 end
 
 class WebDownloader
   include Celluloid
   
-  def s3_client
-    @s3_client ||= S3.new(bucket_name: "vda-public-bucket")
+  def riak_client
+    @riak_client ||= RiakClient.new(bucket_name: "test")
   end
   
   def download(html:)
-    res = s3_client.getObject(key: html)
-    doc = Nokogiri::HTML(res.string)
+    res = riak_client.getObject(key: html)
+    doc = Nokogiri::HTML(res)
     #publish "done", html
     puts "Download HTML with #{doc.xpath('//a').count} links"
     $redis.incr("counter")
@@ -47,7 +44,7 @@ end
 class Consumer
   include Celluloid
   
-  POOL_SIZE = 20
+  POOL_SIZE = 2
   
   def initialize(jobs_count:)
     @jobs_count = jobs_count
