@@ -33,9 +33,10 @@ class WebDownloader
   
   def download(html:)
     res = riak_client.getObject(key: html)
-    doc = Nokogiri::HTML(res)
+    #links = Nokogiri::HTML(res).xpath('//a')
+    links = res.scan(/<a\s+(?:[^>]*?\s+)?href="([^"]*)"/)
     #publish "done", html
-    puts "Download HTML with #{doc.xpath('//a').count} links"
+    puts "Download HTML with #{links.count} links"
     $redis.incr("counter")
   end
 end
@@ -76,4 +77,4 @@ start_time = Time.now
 Consumer.new(jobs_count: MESSAGE_COUNT).poll
 puts "Done at #{($redis.get("counter").to_i/(Time.now - start_time)).round(1)} messages / sec"
 
-#Max : 30 msg / sec from EC2 on m3.medium instance
+#Max : 40 msg / sec from EC2 on m3.medium instance
