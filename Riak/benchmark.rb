@@ -44,7 +44,7 @@ end
 class Consumer
   include Celluloid
   
-  POOL_SIZE = 2
+  POOL_SIZE = 20
   
   def initialize(jobs_count:)
     @jobs_count = jobs_count
