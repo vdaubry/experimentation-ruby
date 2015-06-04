@@ -3,11 +3,11 @@
 
 require "bunny"
 
-conn = Bunny.new(:hostname => "54.83.30.48")
+conn = Bunny.new(:hostname => "127.0.0.1")
 conn.start
 
 ch   = conn.create_channel
-q    = ch.queue("hello", :durable => true)
+q    = ch.queue("test", :durable => true)
 
 #Allow only n message at a time
 ch.prefetch(100);
@@ -19,7 +19,6 @@ puts "Receiving #{MESSAGE_COUNT} messages"
 i=0
 begin
   q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
-    sleep 10
     ch.ack(delivery_info.delivery_tag)
     i+=1
     if i>=MESSAGE_COUNT

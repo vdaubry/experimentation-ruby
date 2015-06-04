@@ -21,7 +21,7 @@ class S3
     @bucket_name = bucket_name
   end
   
-  def getObject(key:)
+  def get_object(key:)
     @s3.get_object(bucket: @bucket_name,
                     key: key).body
   end
@@ -35,7 +35,7 @@ class WebDownloader
   end
   
   def download(html:)
-    res = s3_client.getObject(key: html)
+    res = s3_client.get_object(key: html)
     doc = Nokogiri::HTML(res.string)
     #publish "done", html
     puts "Download HTML with #{doc.xpath('//a').count} links"
