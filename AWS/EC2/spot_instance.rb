@@ -73,4 +73,15 @@ File.open("#{ENV['HOME']}/config", "w") do |f|
           "Host ec2-#{public_ip}.eu-west-1.compute.amazonaws.com" \
           " StrictHostKeyChecking no" \
           " UserKnownHostsFile /dev/null")
+  
+resp = ec2.create_tags({
+  resources: [instance_id],
+  tags: [
+    {
+      key: "tag:usage",
+      value: "etl"
+    },
+  ],
+})
+
 end

@@ -1,0 +1,19 @@
+GIT
+  remote: https://github.com/typhoeus/typhoeus.git
+  revision: 52c61f8756bfc8888843f7053f3de2ca0fe864fa
+  branch: fix_abort
+  specs:
+    typhoeus (0.7.2)
+      ethon (>= 0.7.4)
+
+GEM
+  specs:
+    ethon (0.7.4)
+      ffi (>= 1.3.0)
+    ffi (1.9.10)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  typhoeus!

@@ -1,0 +1,1 @@
+gem "typhoeus", :git => 'https://github.com/typhoeus/typhoeus.git', :branch => 'fix_abort'
