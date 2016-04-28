@@ -1,8 +1,38 @@
-class CSVExporter
-  def export
-    csv = CSV.open("sample.csv", "w+", :col_sep => ";", :encoding => 'UTF-8')
-    csv << ["Column 1", "Column 2", "Column 3"]
-    csv << ["Value 1", "Value 2", "Value 3"]
-    csv.close
+module ExportServices
+  class TourExporter
+    def initialize(tour:)
+      @tour = tour
+    end
+
+    def new_csv(filename)
+      name = filename.split(".")[0]
+      ext = filename.split(".")[1]
+      file = Tempfile.new([name, ".#{ext}"])
+      @csv = CSV.open(file, "w+", :col_sep => ";", :encoding => 'UTF-8')
+      yield(csv)
+      csv.close
+      file.path
+    end
+
+    def export_tour_points
+      new_csv('sample.csv') do |csv|
+        csv << ["latitude", "Longitude", "Date"]
+        tour.tour_points.find_each do |tour_point|
+          csv << [tour_point.latitude, tour_point.longitude, tour_point.passing_time]
+        end
+      end
+    end
+
+    def export_encounters
+      new_csv('encounters.csv') do |csv|
+        csv << ["latitude", "Longitude", "Date"]
+        tour.encounters.find_each do |encounter|
+          csv << [encounter.latitude, encounter.longitude, encounter.passing_time]
+        end
+      end
+    end
+
+    private
+    attr_reader :tour, :csv
   end
 end

@@ -1,0 +1,3 @@
+<%= s3_uploader_form callback_url: users_url, callback_param: "model[image_url]", id: "s3-uploader" do %>
+  <%= file_field_tag :file, multiple: true, data: { url: s3_uploader_url } %>
+<% end %>
