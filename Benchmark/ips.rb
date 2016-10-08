@@ -1,10 +1,11 @@
-#Run in console : RAILS_ENV=production bin/rails c
+#Run with RAILS_ENV=production bundle exec rails runner #{THIS_SCRIPT}.rb
 
 #we're in production mode so we load all environment vars manually
 require 'benchmark/ips'
 require 'dotenv'
 
 Dotenv.load
+#DATABASE_URL in the form : postgres://vincentdaubry@localhost/welovefootball_development
 ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
 
 current_user = User.first
